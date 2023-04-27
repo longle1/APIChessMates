@@ -43,6 +43,19 @@ router.post('/add',asyncHandler(
         }
     }
 ));
+//khi người dùng chấp nhận kết bạn thì chỉnh sửa lại thông tin
+router.put('/edit/:id',asyncHandler(
+    async (req, res) => {
+        const updateFriend = await listFriends.findOne({_id: req.params.id});
+        console.log(updateFriend)
+        updateFriend.status = "friend";
+        await updateFriend.save();
+        res.status(200).send({
+            success: true,
+            data: updateFriend
+        });
+    }
+));
 router.delete('/delete/:id', asyncHandler (
     async (req, res) => {
         const id = req.params.id;

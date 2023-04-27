@@ -74,6 +74,7 @@ router.put("/edit/:id", asyncHandler(
             let error = validateReq(req, res, notifyConfig.ERROR_EDIT_USER);
             if (!error) {
                 const data = await usersModel.updateUser({ id: req.params.id, body: req.body });
+                console.log(data);
                 res.status(201).send({
                     success: true,
                     notify: util.format(notifyConfig.SUCCESS_EDIT_USER, req.params.id),

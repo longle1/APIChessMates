@@ -38,7 +38,7 @@ userSchema.virtual('lists', {
 userSchema.virtual('matches', {
     ref: 'matches',
     localField: '_id',
-    foreignField: 'player.user'
+    foreignField: 'players.user',
 });
 userSchema.set('toObject', { virtuals: true });
 userSchema.set('toJSON', { virtuals: true });
@@ -52,7 +52,7 @@ userSchema.pre("save", function (next) {
     next();
 })
 //kiểm tra xem user login có hợp lệ hay không
-//liên quan trực tiếp đến model và có thể gọi trực tiếp các phương thức của model
+//liên quan trực tiếp đến model và có thể gọi trựxc tiếp các phương thức của model
 userSchema.statics.checkLoginUser = async function (userName, password) {
     let error = "";
     if (!userName.trim() || !password.trim()) return { error: notifyConfig.ERROR_PASSWORD_USERNAME_EMPTY };

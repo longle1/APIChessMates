@@ -7,9 +7,9 @@ module.exports = {
             if (params.userName) userName = { userName: { $regex: params.userName, $options: 'i' } };
             return await usersModel
                 .find(userName)
-                .populate({ path: 'lists'})
-                .populate({path: 'matches'})
-                .select({});
+                .populate({ path: 'lists', select: '-__v'})
+                .populate({path: 'matches', select: '-_id -status -count -betPoints -__v -name'})
+                .select('-__v');
         } else if (options.task === "one") {
             return await usersModel.findById(params.id).select({});
         }
