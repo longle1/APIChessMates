@@ -1,0 +1,20 @@
+module.exports = {
+    ERROR_PASSWORD: "Mật khẩu không hợp lệ",
+    NOTITY_LOGIN: "Bạn chỉ được thực hiện login tối đa 3 lần, vui lòng thực hiện lại sau 3 phút",
+    SUCCESS_GET_USER_LIST: "Thực hiện lấy danh sách thành công",
+    ERROR_GET_LIST_USER: "Không thể thực hiện lấy danh sách",
+    SUCCESS_GET_USER: "Lấy thành công user có id %s",
+    ERROR_FIND_USER: "Không tìm thấy user %s",
+    ERROR_EDIT_USER: "Không thể chỉnh sửa user này",
+    SUCCESS_EDIT_USER: "Đã chỉnh sửa thành công user có id %s",
+    SUCCESS_DELETE_USER: "Xóa thành công user có id: %s",
+    ERROR_PASSWORD_USERNAME_EMPTY: "Username hoặc Password không được bỏ trống",
+    ERROR_PASSWORD_USERNAME_UNCORRECT: "%s nhập vào không chính xác",
+    NOTIFY_TOKEN_EXP: "Mã đã hết hạn, vui lòng nhập lại mã mới",
+    SUCCESS_CONFIRM: "Xác thực mã thành công, vui lòng thực hiện bước tiếp theo",
+    NOTIFY_CHECK_INFO: "Vui lòng kiểm tra lại thông tin",
+    SUCCESS_REGISTER: "Đã đăng ký thành công",
+    ERROR_REGISTER_FAIL: "Đăng ký thất bại, vui lòng thực hiện lại",
+    ERROR_EMAIL_USERNAME_UNCORRECT: "Username hoặc email không hợp lệ, vui lòng nhập lại",
+    ERROR_RESET_PASSWORD: "Không thể đổi mật khẩu, vui lòng thực hiện lại"
+}

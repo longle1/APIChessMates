@@ -1,0 +1,24 @@
+[
+    {
+        "userName": "LongLE112",
+        "password": "123456Lng",
+        "gmail": "ltphilong2001@gmail.com",
+        "linkAvatar": null,
+        "statusActive": "online",
+        "point": 10,
+        "port": 1080,
+        "numberOfWins": 0,
+        "numberOfLosses": 0
+    },
+    {
+        "userName": "ducAnPia",
+        "password": "2151Duc",
+        "gmail": "ducbede@gmail.com",
+        "linkAvatar": null,
+        "statusActive": "offline",
+        "point": 20,
+        "port": 1220,
+        "numberOfWins": 0,
+        "numberOfLosses": 10
+    }
+]
