@@ -1,69 +1,76 @@
 const express = require("express");
-const listFriends = require(__path_schemas + "listFriends");
+const listFriends = require(__path_models + "listFriends");
 const router = express.Router();
 const asyncHandler = require('express-async-handler');
 router.get('/',asyncHandler(
     async (req, res) => {
-        const list = await listFriends.find({});
-        res.status(200).send({
-            data: list
-        });
+        try{
+            const list = await listFriends.getListFriends();
+            res.status(200).json({
+                success: true,
+                message: list
+            });
+        }catch(error) {
+            res.status(200).json({
+                success: true,
+                message: "Lấy danh sách thất bại, vui lòng thực hiện lại"
+            });
+        }
     }
 ));
 router.post('/add',asyncHandler(
     async (req, res) => {
         try {
-            const {id1, id2} = req.body;
-            if(id1 === id2) {
-                res.status(400).json({
-                    success: false,
-                    message: "Dữ liệu trùng, vui lòng thực hiện lại"
+            const list = await listFriends.createFriend(req.body);
+            if(list) {
+                res.status(200).json({
+                    success: true,
+                    success: list
                 });
             }
-            const arraysID = [];
-            arraysID.push(id1);
-            arraysID.push(id2);
-            const object = await listFriends.findOne({listID: arraysID});
-            if(object) {
-                res.status(409).json({
-                    success: false,
-                    message: "Dữ liệu đã tồn tại, không thể tạo thêm"
-                });
-            }
-            const list = await listFriends.create({listID: arraysID});
-            res.status(200).send({
-                success: true,
-                success: list
-            });
         }catch(error) {
             res.status(400).json({
                 success: false,
                 message: "Đã xảy ra lỗi, vui lòng thực hiện lại"
-            })
+            });
         }
     }
 ));
 //khi người dùng chấp nhận kết bạn thì chỉnh sửa lại thông tin
 router.put('/edit/:id',asyncHandler(
     async (req, res) => {
-        const updateFriend = await listFriends.findOne({_id: req.params.id});
-        console.log(updateFriend)
-        updateFriend.status = "friend";
-        await updateFriend.save();
-        res.status(200).send({
-            success: true,
-            data: updateFriend
-        });
+        try {
+            const updateFriend = await listFriends.updateStatusFriend(req. params);
+            if(updateFriend) {
+                res.status(200).json({
+                    success: true,
+                    message: updateFriend
+                });
+            }
+        }catch (error) {
+            res.status(200).json({
+                success: false,
+                message: "Cập nhật trạng thái bạn bè thất bại, vui lòng thực hiện lại"
+            });
+        }
     }
 ));
 router.delete('/delete/:id', asyncHandler (
     async (req, res) => {
-        const id = req.params.id;
-        const list = await listFriends.findOneAndDelete({_id: id});
-        
-        res.status(200).send({
-            data: list
-        });
+        try {
+            const list = await listFriends.deleteFriend(req.params);
+            if(list) {
+                res.status(200).json({
+                    success: true,
+                    message: list
+                });
+            }
+        }catch (error) {
+            res.status(400).json({
+                success: true,
+                message: "Thực hiện xóa thất bại, vui lòng thử lại"
+            });
+        }
     }
 ));
 module.exports = router;

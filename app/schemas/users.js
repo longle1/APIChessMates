@@ -68,7 +68,7 @@ userSchema.statics.checkLoginUser = async function (userName, password) {
 //tạo ra 1 document liên quan đến model
 userSchema.methods.resetPassword = function () {
     const resetToken = crypto.randomBytes(configs.lengthByteRandom).toString('hex');
-    //Không thể lưu thẳng token này vào db được mà phải mã hóa sang 1 chuỗi khác
+    //Không thể lưu token này vào db được mà phải mã hóa sang 1 chuỗi khác
     this.resetPasswordToken = crypto
         .createHash("sha256")
         .update(resetToken)
