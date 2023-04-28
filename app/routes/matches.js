@@ -30,23 +30,23 @@ router.post('/add', asyncHandler(
             if (room) {
                 res.status(200).json({
                     success: true,
-                    message: room
+                    data: room
                 });
             }
         } catch (error) {
             res.status(400).json({
                 success: false,
-                message: "Tạo phòng thất bại, vui lòng thực hiện lai"
+                notify: "Tạo phòng thất bại, vui lòng thực hiện lai"
             });
         }
     }
 ));
 //khi có user tham gia vào phòng chat thì tiến hành thêm user đó vào phòng chơi
-//chỉnh sửa lại thông tin về kết quả của trận đấu
-router.put('/edit/:id', asyncHandler(
+
+router.put('/edit/addOrSubUser/:id', asyncHandler(
     async (req, res) => {
         try {
-            const room = await matches.join_Exit_Finish_Room(req)
+            const room = await matches.join_Exit_Room(req)
             if (room) {
                 res.status(200).json({
                     success: true,
@@ -62,7 +62,25 @@ router.put('/edit/:id', asyncHandler(
         }
     }
 ));
-
+//chỉnh sửa lại thông tin về kết quả của trận đấu
+router.put('/edit/resultMatch/:id', asyncHandler(
+    async (req, res) => {
+        try {
+            const room = await matches.finished_Room(req)
+            if (room) {
+                res.status(200).json({
+                    success: true,
+                    messag: room
+                });
+            }
+        } catch (error) {
+            res.status(400).json({
+                success: false,
+                message: "Đã xảy ra lỗi trong quá trình chỉnh sửa, vui lòng thực hiện lại"
+            });
+        }
+    }
+));
 router.delete('/delete/:id', asyncHandler(
     async (req, res) => {
         const id = req.params.id;

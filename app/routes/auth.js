@@ -3,12 +3,18 @@ const router = express.Router();
 const asyncHandler = require('express-async-handler');
 const authModel = require(__path_models + "auth");
 const validatesPassword = require(__path_validates + "password");
-const validatesUser = require(__path_validates + "users");
+const validatesUser = require(__path_validates + "registerUser");
 const validateReq = require("../middlewares/checkErrorCondition");
 const notifyConfig = require("../configs/notify");
 const util = require('util');
 var userId = null;
+//thư viện express-rate-limit
+const rateLimit = require('express-rate-limit');
 
+const limiter = rateLimit({
+    windowMs: 3 * 60 * 1000,
+    max: 3
+});
 router.post('/register',asyncHandler(
     async (req, res) => {
         try {
@@ -38,13 +44,10 @@ router.post('/register',asyncHandler(
 ));
 
 router.post('/login', asyncHandler(
-    async (req, res) => {
+    async (req, res, next) => {
         const data = await authModel.login(req.body);
-        if (data.error) {
-            res.status(401).json({
-                success: false,
-                message: result.error
-            });
+        if (!data) {
+            next();
         } else {
             res.status(200).json({
                 success: true,
@@ -52,7 +55,12 @@ router.post('/login', asyncHandler(
             });
         }
     }
-));
+), limiter, (req, res) => {
+    res.status(429).json({
+        success: false,
+        message: notifyConfig.NOTITY_LOGIN
+    });
+});
 //forgotPassword
 router.post('/forgotPassword', asyncHandler(
     async (req, res) => {

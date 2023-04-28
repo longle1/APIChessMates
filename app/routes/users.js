@@ -20,12 +20,11 @@ const validateReq = (req, res, notify) => {
                 messageErrors[value.param] = arrayErrors;
             }
         });
-        res.status(400).send({
+        res.status(400).json({
             success: false,
             notify,
             messageErrors
         });
-        
         return true;
     }
     return false;
@@ -42,9 +41,7 @@ router.get("/", asyncHandler(
         } catch (err) {
             res.status(400).json({
                 success: false,
-                notice: notifyConfig.ERROR_GET_LIST_USER,
-                data: null,
-                error: err
+                notice: notifyConfig.ERROR_GET_LIST_USER
             });
         }
     }
@@ -62,8 +59,7 @@ router.get("/:id", asyncHandler(
         } catch (err) {
             res.status(400).json({
                 success: false,
-                notice: util.format(notifyConfig.ERROR_FIND_USER, id),
-                data: null,
+                notice: util.format(notifyConfig.ERROR_FIND_USER, id)
             });
         }
     }
@@ -74,15 +70,16 @@ router.put("/edit/:id", asyncHandler(
             let error = validateReq(req, res, notifyConfig.ERROR_EDIT_USER);
             if (!error) {
                 const data = await usersModel.updateUser({ id: req.params.id, body: req.body });
-                console.log(data);
-                res.status(201).send({
-                    success: true,
-                    notify: util.format(notifyConfig.SUCCESS_EDIT_USER, req.params.id),
-                    data
-                });
+                if(data) {
+                    res.status(201).json({
+                        success: true,
+                        notify: util.format(notifyConfig.SUCCESS_EDIT_USER, req.params.id),
+                        data
+                    });
+                }
             }
         } catch (error) {
-            res.status(400).send({
+            res.status(400).json({
                 success: false,
                 notify: util.format(notifyConfig.ERROR_FIND_USER, req.params.id),
             });

@@ -7,7 +7,7 @@ module.exports = {
         let {userName, password} = params;
         const result = await usersModel.checkLoginUser(userName, password);
         if(result.error)
-            return result.error;
+            return false;
         return result;
     },
     forgotPassword: async(params) => {
@@ -65,7 +65,6 @@ module.exports = {
         if(!params.id) {
             return false;
         }
-        console.log("typeof: " + params.id);
         const user = await usersModel.findOne({_id: params.id});
 
         user.password = params.password;

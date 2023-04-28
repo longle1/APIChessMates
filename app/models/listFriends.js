@@ -1,25 +1,19 @@
 const listFriendsModel = require(__path_schemas + "listFriends");
 module.exports = {
     getListFriends: async () => {
-        return await listFriendsModel.find({});;
+        return await listFriendsModel.find({}).select('-__v');
     },
     createFriend: async (body) => {
-        const { id1, id2 } = body;
-        if (id1 === id2) {
-            res.status(400).json({
-                success: false,
-                message: "Dữ liệu trùng, vui lòng thực hiện lại"
-            });
+        const { id_user1, id_user2 } = body;
+        if (id_user1 === id_user2) {
+            return "errorID"
         }
         const arraysID = [];
-        arraysID.push(id1);
-        arraysID.push(id2);
+        arraysID.push(id_user1);
+        arraysID.push(id_user2);
         const object = await listFriendsModel.findOne({ listID: arraysID });
         if (object) {
-            res.status(409).json({
-                success: false,
-                message: "Dữ liệu đã tồn tại, không thể tạo thêm"
-            });
+            return "duplicateData";
         }
         return await listFriendsModel.create({ listID: arraysID });
     },
@@ -28,5 +22,8 @@ module.exports = {
         updateFriend.status = "friend";
         await updateFriend.save();
         return updateFriend;
+    },
+    deleteFriend: async(params) => {
+        return await listFriendsModel.findOneAndDelete({_id: params.id});
     }
 }

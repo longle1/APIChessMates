@@ -22,7 +22,6 @@ const matchesSchema = new mongoose.Schema({
         type: Number,
         default: 1
     },
-    result: String,
     betPoints: {
         type: String,
         default: 1

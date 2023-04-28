@@ -22,16 +22,26 @@ router.post('/add',asyncHandler(
     async (req, res) => {
         try {
             const list = await listFriends.createFriend(req.body);
-            if(list) {
+            if(list === "errorID") {
+                res.status(400).json({
+                    success: true,
+                    notify: "Dữ liệu trùng, vui lòng thực hiện lại"
+                });
+            }else if(list === "duplicateData") {
+                res.status(409).json({
+                    success: false,
+                    notify: "Dữ liệu đã tồn tại, không thể tạo thêm"
+                });
+            }else {
                 res.status(200).json({
                     success: true,
-                    success: list
+                    data: list
                 });
             }
         }catch(error) {
             res.status(400).json({
                 success: false,
-                message: "Đã xảy ra lỗi, vui lòng thực hiện lại"
+                notify: "Đã xảy ra lỗi, vui lòng thực hiện lại"
             });
         }
     }
@@ -44,13 +54,13 @@ router.put('/edit/:id',asyncHandler(
             if(updateFriend) {
                 res.status(200).json({
                     success: true,
-                    message: updateFriend
+                    data: updateFriend
                 });
             }
         }catch (error) {
             res.status(200).json({
                 success: false,
-                message: "Cập nhật trạng thái bạn bè thất bại, vui lòng thực hiện lại"
+                notify: "Cập nhật trạng thái bạn bè thất bại, vui lòng thực hiện lại"
             });
         }
     }
@@ -62,13 +72,13 @@ router.delete('/delete/:id', asyncHandler (
             if(list) {
                 res.status(200).json({
                     success: true,
-                    message: list
+                    data: list
                 });
             }
         }catch (error) {
             res.status(400).json({
                 success: true,
-                message: "Thực hiện xóa thất bại, vui lòng thử lại"
+                notify: "Thực hiện xóa thất bại, vui lòng thử lại"
             });
         }
     }
