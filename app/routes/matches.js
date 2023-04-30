@@ -3,7 +3,6 @@ const asyncHandler = require('express-async-handler');
 const router = express.Router();
 const matches = require(__path_models + "matches");
 const notifyConfig = require( __path_configs + 'notify');
-const util = require('util');
 router.get('/', asyncHandler(
     async (req, res) => {
         try {

@@ -2,15 +2,13 @@ const express = require("express");
 const listFriends = require(__path_models + "listFriends");
 const router = express.Router();
 const asyncHandler = require('express-async-handler');
-const util = require('util');
-const notifyCofig = require( __path_configs + "notify");
+const notifyCofig = require("../configs/notify");
 router.get('/',asyncHandler(
     async (req, res) => {
         try{
             const data = await listFriends.getListFriends();
             res.status(200).json({
                 success: true,
-                notify: notifyCofig.SUCCESS_GET_LISTFRIENDS,
                 data
             });
         }catch(error) {
@@ -33,12 +31,12 @@ router.post('/add',asyncHandler(
             }else if(data === "duplicateData") {
                 res.status(409).json({
                     success: false,
-                    notify: util.format(notifyCofig.ERROR_EXISTS, "Danh sách bạn bè")
+                    notify: notifyCofig.ERROR_EXISTS_LISTFRIEND
                 });
             }else {
                 res.status(201).json({
                     success: true,
-                    notify: notifyCofig.SUCCESS_CREATE_LISTFRIENDS,
+                    notifyCofig: notifyCofig.SUCCESS_CREATE,
                     data
                 });
             }
@@ -58,7 +56,7 @@ router.put('/edit/:id',asyncHandler(
             if(data) {
                 res.status(200).json({
                     success: true,
-                    notify: util.format(notifyCofig.SUCCESS_UPDATE_LISTFRIENDS, req.params.id),
+                    notify: notifyCofig.SUCCESS_UPDATE_LISTFRIENDS,
                     data
                 });
             }
@@ -77,7 +75,7 @@ router.delete('/delete/:id', asyncHandler (
             if(data) {
                 res.status(200).json({
                     success: true,
-                    notify: util.format(notifyCofig.SUCCESS_DELETE_LISTFRIENDS, req.params.id),
+                    notify: notifyCofig.SUCCESS_DELETE_LISTFRIENDS,
                     data
                 });
             }

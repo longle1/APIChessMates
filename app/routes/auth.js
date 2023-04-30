@@ -7,7 +7,6 @@ const validatesUser = require(__path_validates + "registerUser");
 const validateReq = require(__path_middlewares + "checkErrorCondition");
 const notifyConfig = require( __path_configs + "notify");
 const config = require( __path_configs + "config");
-const util = require('util');
 var userId = null;
 //thư viện express-rate-limit
 const rateLimit = require('express-rate-limit');
@@ -25,7 +24,7 @@ router.post('/register', asyncHandler(
                 if (!data) {
                     res.status(401).json({
                         succes: true,
-                        notify: util.format(notifyConfig.ERROR_EXISTS, "User")
+                        notify: notifyConfig.ERROR_EXISTS_USER
                     });
                 }
                 res.status(201).json({
@@ -68,7 +67,7 @@ router.post('/login', asyncHandler(
     if (!count) {
         res.status(403).json({
             success: false,
-            notify: util.format(notifyConfig.NOTIFY_LOGIN_AGAIN, config.loginExp)
+            notify: notifyConfig.NOTIFY_LOGIN_AGAIN
         });
 
         setTimeout(() => {
@@ -77,7 +76,7 @@ router.post('/login', asyncHandler(
     } else {
         res.status(429).json({
             success: false,
-            notify: util.format(notifyConfig.NOTITY_LOGIN, count)
+            notify: notifyConfig.NOTITY_LOGIN
         });
     }
 });
@@ -95,6 +94,7 @@ router.post('/forgotPassword', asyncHandler(
             res.status(200).json({
                 succes: true,
                 notify: notifyConfig.SUCCESS_CHECKEMAIL,
+                data
             });
         } catch (error) {
             res.status(400).json({
@@ -140,7 +140,7 @@ router.post('/resetPassword', asyncHandler(
                 if (!data) {
                     res.status(400).json({
                         success: true,
-                        notify: util.format(notifyConfig.ERROR_FIND_USER, "")
+                        notify: notifyConfig.ERROR_FIND_USER
                     });
                 }
                 res.status(200).json({
