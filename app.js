@@ -38,10 +38,11 @@ global.__path_schemas = __path_app + pathFolders.folder_schemas + '/';
 global.__path_middlewares = __path_app + pathFolders.folder_middlewares + '/';
 global.__path_models = __path_app + pathFolders.folder_models + '/';
 global.__path_validates = __path_app + pathFolders.folder_validates + '/';
+const config = require(__path_configs + "config");
 //Dùng để kết nối đến databasea
 main().catch(err => console.log(err));
 async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/test');
+    await mongoose.connect(`mongodb+srv://${config.usernameMongoose}:${config.passwordMongoose}@cluster0.pffoqjv.mongodb.net/test`);
     console.log("Connect Success".blue);
 }
 

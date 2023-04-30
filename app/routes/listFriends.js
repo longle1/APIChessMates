@@ -2,18 +2,21 @@ const express = require("express");
 const listFriends = require(__path_models + "listFriends");
 const router = express.Router();
 const asyncHandler = require('express-async-handler');
+const util = require('util');
+const notifyCofig = require( __path_configs + "notify");
 router.get('/',asyncHandler(
     async (req, res) => {
         try{
-            const list = await listFriends.getListFriends();
+            const data = await listFriends.getListFriends();
             res.status(200).json({
                 success: true,
-                message: list
+                notify: notifyCofig.SUCCESS_GET_LISTFRIENDS,
+                data
             });
         }catch(error) {
             res.status(200).json({
                 success: true,
-                message: "Lấy danh sách thất bại, vui lòng thực hiện lại"
+                notify: notifyCofig.ERROR_EXCUTE_FAIL
             });
         }
     }
@@ -21,27 +24,28 @@ router.get('/',asyncHandler(
 router.post('/add',asyncHandler(
     async (req, res) => {
         try {
-            const list = await listFriends.createFriend(req.body);
-            if(list === "errorID") {
+            const data = await listFriends.createFriend(req.body);
+            if(data === "errorID") {
                 res.status(400).json({
                     success: true,
-                    notify: "Dữ liệu trùng, vui lòng thực hiện lại"
+                    notify: notifyCofig.ERROR_DUPLICATE_DATA
                 });
-            }else if(list === "duplicateData") {
+            }else if(data === "duplicateData") {
                 res.status(409).json({
                     success: false,
-                    notify: "Dữ liệu đã tồn tại, không thể tạo thêm"
+                    notify: util.format(notifyCofig.ERROR_EXISTS, "Danh sách bạn bè")
                 });
             }else {
-                res.status(200).json({
+                res.status(201).json({
                     success: true,
-                    data: list
+                    notify: notifyCofig.SUCCESS_CREATE_LISTFRIENDS,
+                    data
                 });
             }
         }catch(error) {
             res.status(400).json({
                 success: false,
-                notify: "Đã xảy ra lỗi, vui lòng thực hiện lại"
+                notify: notifyCofig.ERROR_EXCUTE_FAIL
             });
         }
     }
@@ -50,17 +54,18 @@ router.post('/add',asyncHandler(
 router.put('/edit/:id',asyncHandler(
     async (req, res) => {
         try {
-            const updateFriend = await listFriends.updateStatusFriend(req. params);
-            if(updateFriend) {
+            const data = await listFriends.updateStatusFriend(req. params);
+            if(data) {
                 res.status(200).json({
                     success: true,
-                    data: updateFriend
+                    notify: util.format(notifyCofig.SUCCESS_UPDATE_LISTFRIENDS, req.params.id),
+                    data
                 });
             }
         }catch (error) {
-            res.status(200).json({
+            res.status(400).json({
                 success: false,
-                notify: "Cập nhật trạng thái bạn bè thất bại, vui lòng thực hiện lại"
+                notify: notifyCofig.ERROR_EXCUTE_FAIL
             });
         }
     }
@@ -68,17 +73,18 @@ router.put('/edit/:id',asyncHandler(
 router.delete('/delete/:id', asyncHandler (
     async (req, res) => {
         try {
-            const list = await listFriends.deleteFriend(req.params);
-            if(list) {
+            const data = await listFriends.deleteFriend(req.params);
+            if(data) {
                 res.status(200).json({
                     success: true,
-                    data: list
+                    notify: util.format(notifyCofig.SUCCESS_DELETE_LISTFRIENDS, req.params.id),
+                    data
                 });
             }
         }catch (error) {
             res.status(400).json({
-                success: true,
-                notify: "Thực hiện xóa thất bại, vui lòng thử lại"
+                success: false,
+                notify: notifyCofig.ERROR_EXCUTE_FAIL
             });
         }
     }

@@ -35,13 +35,13 @@ router.get("/", asyncHandler(
             const data = await usersModel.listUsers({userName: req.query.userName}, { task: "all" });
             res.status(200).json({
                 success: true,
-                notice: notifyConfig.SUCCESS_GET_USER_LIST,
+                notify: notifyConfig.SUCCESS_GET_USER_LIST,
                 data
             });
         } catch (err) {
             res.status(400).json({
                 success: false,
-                notice: notifyConfig.ERROR_GET_LIST_USER
+                notify: notifyConfig.ERROR_EXCUTE_FAIL
             });
         }
     }
@@ -53,13 +53,13 @@ router.get("/:id", asyncHandler(
             const data = await usersModel.listUsers({ id }, { task: "one" });
             res.status(200).json({
                 success: true,
-                notice: util.format(notifyConfig.SUCCESS_GET_USER, id),
+                notify: util.format(notifyConfig.SUCCESS_GET_USER, id),
                 data
             });
         } catch (err) {
             res.status(400).json({
                 success: false,
-                notice: util.format(notifyConfig.ERROR_FIND_USER, id)
+                notify: notifyConfig.ERROR_EXCUTE_FAIL
             });
         }
     }
@@ -71,7 +71,7 @@ router.put("/edit/:id", asyncHandler(
             if (!error) {
                 const data = await usersModel.updateUser({ id: req.params.id, body: req.body });
                 if(data) {
-                    res.status(201).json({
+                    res.status(200).json({
                         success: true,
                         notify: util.format(notifyConfig.SUCCESS_EDIT_USER, req.params.id),
                         data
@@ -81,7 +81,7 @@ router.put("/edit/:id", asyncHandler(
         } catch (error) {
             res.status(400).json({
                 success: false,
-                notify: util.format(notifyConfig.ERROR_FIND_USER, req.params.id),
+                notify: notifyConfig.ERROR_EXCUTE_FAIL
             });
         }
     }
@@ -93,14 +93,13 @@ router.delete('/delete/:id', asyncHandler(
             const data = await usersModel.deleteUser({ id });
             res.status(200).json({
                 success: true,
-                notice: util.format(notifyConfig.SUCCESS_DELETE_USER, id),
+                notify: util.format(notifyConfig.SUCCESS_DELETE_USER, id),
                 data
             });
         } catch (err) {
             res.status(400).json({
                 success: false,
-                notice: util.format(notifyConfig.ERROR_FIND_USER, id),
-                data: null,
+                notify: notifyConfig.ERROR_EXCUTE_FAIL
             });
         }
     }

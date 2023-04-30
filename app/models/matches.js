@@ -13,10 +13,14 @@ module.exports = {
         //tìm phòng theo id
         const room = await matchesModel.findOne({ _id: req.params.id });
         if (req.body.option.toLocaleLowerCase() === "adduser") {
-            const object = { user: req.body.id };
-            room.players.push(object);
-            room.count += 1;
-            room.status = "fighting";
+            if (room.players.length === 1) {
+                const object = { user: req.body.id };
+                room.players.push(object);
+                room.count += 1;
+                room.status = "fighting";
+            }else {
+                return false;
+            }
         } else if (req.body.option.toLocaleLowerCase() === "subuser") {
             //khi người dùng thoát khỏi phòng đấu thì chỉ cần xóa id đó là được
             room.players.forEach((player, index) => {

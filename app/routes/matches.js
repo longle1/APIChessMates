@@ -2,20 +2,23 @@ const express = require("express");
 const asyncHandler = require('express-async-handler');
 const router = express.Router();
 const matches = require(__path_models + "matches");
+const notifyConfig = require( __path_configs + 'notify');
+const util = require('util');
 router.get('/', asyncHandler(
     async (req, res) => {
         try {
-            const listRooms = await matches.getListRooms();
-            if (listRooms) {
+            const data = await matches.getListRooms();
+            if (data) {
                 res.status(200).json({
                     success: true,
-                    messag: listRooms
+                    notify: notifyConfig.SUCCESS_GET,
+                    data
                 });
             }
         }catch(error) {
             res.status(400).json({
                 success: false,
-                message: "Lấy danh sách phòng thất bại, vui lòng thực hiện lại"
+                notify: notifyConfig.ERROR_EXCUTE_FAIL
             });
         }
     }
@@ -26,38 +29,45 @@ router.post('/add', asyncHandler(
     async (req, res) => {
         try {
             //khi bắt đầu tạo phòng thì chỉ có 1 người chơi
-            const room = await matches.createRoom(req.body);
-            if (room) {
-                res.status(200).json({
+            const data = await matches.createRoom(req.body);
+            if (data) {
+                res.status(201).json({
                     success: true,
-                    data: room
+                    notify: notifyConfig.SUCCESS_CREATE,
+                    data
                 });
             }
         } catch (error) {
             res.status(400).json({
                 success: false,
-                notify: "Tạo phòng thất bại, vui lòng thực hiện lai"
+                notify: notifyConfig.ERROR_EXCUTE_FAIL
             });
         }
     }
 ));
 //khi có user tham gia vào phòng chat thì tiến hành thêm user đó vào phòng chơi
-
 router.put('/edit/addOrSubUser/:id', asyncHandler(
     async (req, res) => {
         try {
-            const room = await matches.join_Exit_Room(req)
-            if (room) {
+            const data = await matches.join_Exit_Room(req)
+            if (data) {
                 res.status(200).json({
                     success: true,
-                    messag: room
+                    notify: notifyConfig.SUCCESS_UPDATE_MATCHES,
+                    data
                 });
+            }else {
+                if(req.body.option === "adduser") {
+                    res.status(400).json({
+                        success: true,
+                        notify: notifyConfig.NOTIFY_FULLROOM
+                    });
+                }
             }
         } catch (error) {
-            console.log(error);
             res.status(400).json({
                 success: false,
-                message: "Đã xảy ra lỗi trong quá trình chỉnh sửa, vui lòng thực hiện lại"
+                notify: notifyConfig.ERROR_EXCUTE_FAIL
             });
         }
     }
@@ -66,36 +76,42 @@ router.put('/edit/addOrSubUser/:id', asyncHandler(
 router.put('/edit/resultMatch/:id', asyncHandler(
     async (req, res) => {
         try {
-            const room = await matches.finished_Room(req)
-            if (room) {
+            const data = await matches.finished_Room(req)
+            if (data) {
                 res.status(200).json({
                     success: true,
-                    messag: room
+                    notify: notifyConfig.SUCCESS_UPDATE_MATCHES_RESULT,
+                    data
                 });
             }
         } catch (error) {
             res.status(400).json({
                 success: false,
-                message: "Đã xảy ra lỗi trong quá trình chỉnh sửa, vui lòng thực hiện lại"
+                notify: notifyConfig.ERROR_EXCUTE_FAIL
             });
         }
     }
 ));
 router.delete('/delete/:id', asyncHandler(
     async (req, res) => {
-        const id = req.params.id;
         try {
-            const room = await matches.deleteRoom(req.params.id);
-            if (room) {
+            const data = await matches.deleteRoom(req.params.id);
+            if (data) {
                 res.status(200).json({
                     success: true,
-                    messag: room
+                    notify: util.format(notifyConfig.SUCCESS_DELETE_MATCHES, req.params.id),
+                    data
+                });
+            }else {
+                res.status(400).json({
+                    success: true,
+                    notify: notifyConfig.NOTIFY_LIST_EMPTY
                 });
             }
         } catch (error) {
             res.status(400).json({
                 success: false,
-                message: "Xóa phòng thất bại, vui lòng thực hiện lại"
+                notify: notifyConfig.ERROR_EXCUTE_FAIL
             });
         }
     }

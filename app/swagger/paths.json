@@ -1,0 +1,544 @@
+{
+    "/users": {
+        "get": {
+            "tags": [
+                "users"
+            ],
+            "summary": "Lấy danh sách người dùng",
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/users"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/users/{id}": {
+        "get": {
+            "tags": [
+                "users"
+            ],
+            "summary": "Lấy thông tin một user dựa vào id",
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of user",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/components/schemas/id"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/users"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/users/delete/{id}": {
+        "delete": {
+            "tags": [
+                "users"
+            ],
+            "summary": "Xóa người dùng khỏi danh sách dựa vào id",
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of user",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/components/schemas/id"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/users"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/users/edit/{id}": {
+        "put": {
+            "tags": [
+                "users"
+            ],
+            "summary": "Chỉnh sửa thông tin người dùng theo id",
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of user",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/components/schemas/id"
+                    }
+                }
+            ],
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#components/schemas/editUser"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/users"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/listFriends": {
+        "get": {
+            "tags": [
+                "listFriends"
+            ],
+            "summary": "Lấy danh sách bạn bè",
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/listFriends"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/listFriends/edit/{id}": {
+        "put": {
+            "tags": [
+                "listFriends"
+            ],
+            "summary": "Cập nhật trạng thái là bạn bè theo id",
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of list friends",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/components/schemas/id"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/listFriends"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/listFriends/add": {
+        "post": {
+            "tags": [
+                "listFriends"
+            ],
+            "summary": "Tạo mới danh sách bạn bè",
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#components/schemas/addFriend"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/listFriends"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/listFriends/delete/{id}": {
+        "delete": {
+            "tags": [
+                "listFriends"
+            ],
+            "summary": "Xóa bạn bè theo id",
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of user",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/components/schemas/id"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/listFriends"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/matches": {
+        "get": {
+            "tags": [
+                "matches"
+            ],
+            "summary": "Hiển thị danh sách phòng chơi",
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/matches"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/matches/add": {
+        "post": {
+            "tags": [
+                "matches"
+            ],
+            "summary": "Tạo phòng chơi",
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#components/schemas/addMatches"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/matches"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/matches/edit/addOrSubUser/{id}": {
+        "put": {
+            "tags": [
+                "matches"
+            ],
+            "summary": "Cập nhật phòng chơi theo id",
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of user",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/components/schemas/id"
+                    }
+                }
+            ],
+            "requestBody": {
+                "description": "option có 2 trường hợp là adduser (tham gia trận đấu), subuser (thoát khỏi phòng đấu)",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#components/schemas/addOrSubUser"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/matches"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/matches/edit/resultMatch/{id}": {
+        "put": {
+            "tags": [
+                "matches"
+            ],
+            "summary": "Cập nhật phòng chơi theo id",
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of user",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/components/schemas/id"
+                    }
+                }
+            ],
+            "requestBody": {
+                "description": "Thông tin nhập vào có dạng 644b999dfe78754ef98232c7-win/lose",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#components/schemas/resultMatch"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/matches"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/matches/delete/{id}": {
+        "delete": {
+            "tags": [
+                "matches"
+            ],
+            "summary": "Xóa phòng chơi theo id",
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of matches",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/components/schemas/id"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/matches"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/auth/register": {
+        "post": {
+            "tags": [
+                "users"
+            ],
+            "summary": "Tạo tài khoản mới",
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#components/schemas/register"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/matches"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/auth/login": {
+        "post": {
+            "tags": [
+                "users"
+            ],
+            "summary": "Kiểm tra đăng nhập",
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#components/schemas/login"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/users"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/auth/forgotPassword": {
+        "post": {
+            "tags": [
+                "users"
+            ],
+            "summary": "Quên mật khẩu và gửi mã xác thực",
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#components/schemas/forgotPassword"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/users"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/auth/getToken/{token}": {
+        "post": {
+            "tags": [
+                "users"
+            ],
+            "summary": "Nhập mã xác thực",
+            "parameters": [
+                {
+                    "name": "token",
+                    "in": "path",
+                    "description": "input Token",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/components/schemas/token"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/users"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/auth/resetPassword": {
+        "post": {
+            "tags": [
+                "users"
+            ],
+            "summary": "Đổi mật khẩu mới",
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#components/schemas/resetPassword"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/users"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
