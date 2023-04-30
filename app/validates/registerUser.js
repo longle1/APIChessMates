@@ -1,4 +1,3 @@
-const util = require('node:util');
 const notify = require("./notify");
 var colors = require('colors');
 const options = {
@@ -9,10 +8,10 @@ let characters = "!@#$%^&*()_-+=}{[]\'\";:<>.,?/";
 module.exports = {
     validator: (req) => {
         //name 
-        req.checkBody("userName", util.format(notify.ERROR_NAME_EMPTY, "UserName")).not().isEmpty();
-        req.checkBody("userName", util.format(notify.ERROR_NAME_LENGTH, "UserName", options.name.min, options.name.max))
+        req.checkBody("userName", notify.ERROR_NAME_EMPTY).not().isEmpty();
+        req.checkBody("userName", notify.ERROR_NAME_LENGTH)
             .isLength({ min: options.name.min, max: options.name.max });
-        req.checkBody("userName", util.format(notify.ERROR_NAME_CONTAINS_SPECIALCHARS, "UserName"))
+        req.checkBody("userName", notify.ERROR_NAME_CONTAINS_SPECIALCHARS)
             .custom(value => {
                 var checkSpecialChars = true;
                 for (let index = 0; index < value.length; index++)
@@ -20,16 +19,16 @@ module.exports = {
                 return checkSpecialChars;
             });
         //password
-        req.checkBody("password", util.format(notify.ERROR_NAME_EMPTY, "Password")).not().isEmpty();
-        req.checkBody("password", util.format(notify.ERROR_NAME_LENGTH, "password", options.name.min, options.name.max))
+        req.checkBody("password", notify.ERROR_PASSWORD_EMPTY).not().isEmpty();
+        req.checkBody("password", notify.ERROR_PASSWORD_LENGTH)
             .isLength({ min: options.name.min, max: options.name.max });
-        req.checkBody("password", util.format(notify.ERROR_PASSWORD_NO_SPACES, "password"))
+        req.checkBody("password", notify.ERROR_PASSWORD_NO_SPACES)
             .custom(value => {
                 for (let index = 0; index < value.length; index++)
                     if (value[index].includes(" ")) return false;
                 return true;
             });
-        req.checkBody("password", util.format(notify.ERROR_PASSWORD_CONTAINTS_DIGIT_UPPERCASE_LOWERCASE, "password"))
+        req.checkBody("password", notify.ERROR_PASSWORD_CONTAINTS_DIGIT_UPPERCASE_LOWERCASE)
             .custom(value => {
                 let checkDigit = false, checkUpper = false, checkLower = false;
                 for (let index = 0; index < value.length; index++) {
@@ -41,8 +40,8 @@ module.exports = {
                 return false;
             });
         //gmail
-        req.checkBody("gmail", util.format(notify.ERROR_NAME_EMPTY, "Email")).not().isEmpty();
-        req.checkBody("gmail", util.format(notify.ERROR_GMAIL_ILLEGAL))
+        req.checkBody("gmail", notify.ERROR_MAIL_EMPTY).not().isEmpty();
+        req.checkBody("gmail", notify.ERROR_GMAIL_ILLEGAL)
             .matches(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
         const errors = req.validationErrors() !== false ? req.validationErrors() : [];
         return errors;
