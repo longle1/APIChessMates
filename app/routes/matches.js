@@ -98,7 +98,7 @@ router.delete('/delete/:id', asyncHandler(
             if (data) {
                 res.status(200).json({
                     success: true,
-                    notify: util.format(notifyConfig.SUCCESS_DELETE_MATCHES, req.params.id),
+                    notify: notifyConfig.SUCCESS_DELETE_MATCHES,
                     data
                 });
             }else {

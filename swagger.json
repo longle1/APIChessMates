@@ -5,7 +5,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000/api/v1",
+      "url": "https://chessmates.onrender.com/api/v1",
       "description": "Localhost"
     }
   ],
@@ -553,7 +553,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/users"
+                  "$ref": "#/components/schemas/matches"
                 }
               }
             }
@@ -594,7 +594,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/users"
+                  "$ref": "#/components/schemas/matches"
                 }
               }
             }
@@ -654,7 +654,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/users"
+                  "$ref": "#/components/schemas/matches"
                 }
               }
             }

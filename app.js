@@ -29,7 +29,6 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
 const pathFolders = require("./pathFolders");
-const errorHandler = require('./app/middlewares/error');
 global.__base = __dirname + '/';
 global.__path_app = __base + pathFolders.folder_app + '/';
 global.__path_configs = __path_app + pathFolders.folder_configs + '/';
@@ -49,7 +48,6 @@ async function main() {
 app.use('/api/v1', require(__path_routes));
 
 
-app.use(errorHandler);
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
