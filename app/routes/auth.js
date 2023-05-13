@@ -8,13 +8,8 @@ const validateReq = require(__path_middlewares + "checkErrorCondition");
 const notifyConfig = require( __path_configs + "notify");
 const config = require( __path_configs + "config");
 var userId = null;
-//thư viện express-rate-limit
-const rateLimit = require('express-rate-limit');
 
-const limiter = rateLimit({
-    windowMs: 3 * 60 * 1000,
-    max: 3
-});
+
 router.post('/register', asyncHandler(
     async (req, res) => {
         try {
@@ -41,13 +36,15 @@ router.post('/register', asyncHandler(
         }
     }
 ));
-var count = 3;
 router.post('/login', asyncHandler(
     async (req, res, next) => {
         try {
             const data = await authModel.login(req.body);
             if (!data) {
-                next();
+                res.status(401).json({
+                    success: false,
+                    notify: notifyConfig.NOTITY_LOGIN
+                });
             } else {
                 res.status(200).json({
                     success: true,
@@ -62,24 +59,7 @@ router.post('/login', asyncHandler(
             });
         }
     }
-), limiter, (req, res) => {
-    count--;
-    if (!count) {
-        res.status(403).json({
-            success: false,
-            notify: notifyConfig.NOTIFY_LOGIN_AGAIN
-        });
-
-        setTimeout(() => {
-            count = 3;
-        }, config.loginExp * 60 * 1000); // khoá API trong 3 phút
-    } else {
-        res.status(429).json({
-            success: false,
-            notify: notifyConfig.NOTITY_LOGIN
-        });
-    }
-});
+));
 //forgotPassword
 router.post('/forgotPassword', asyncHandler(
     async (req, res) => {

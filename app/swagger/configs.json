@@ -6,7 +6,7 @@
     "servers": [
         {
             "url": "https://chessmates.onrender.com/api/v1",
-            "description": "Localhost"
+            "description": "chessmates"
         }
     ],
     "tags": [
