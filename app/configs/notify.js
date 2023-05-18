@@ -6,7 +6,7 @@ module.exports = {
     SUCCESS_EDIT_USER: "Đã chỉnh sửa thành công user",
     SUCCESS_DELETE_USER: "Xóa thành công user",
     ERROR_PASSWORD_USERNAME_EMPTY: "Username hoặc Password không được bỏ trống",
-    ERROR_PASSWORD_USERNAME_UNCORRECT: "%s nhập vào không chính xác",
+    ERROR_PASSWORD_USERNAME_UNCORRECT: "Password nhập vào không chính xác",
     NOTIFY_TOKEN_EXP: "Mã đã hết hạn, vui lòng nhập lại mã mới",
     SUCCESS_CONFIRM: "Xác thực mã thành công, vui lòng thực hiện bước tiếp theo",
     NOTIFY_CHECK_INFO: "Vui lòng kiểm tra lại thông tin",
@@ -29,5 +29,7 @@ module.exports = {
     SUCCESS_DELETE_MATCHES: "Xóa thành công phòng chơi",
     NOTIFY_LIST_EMPTY: "Danh sách trống, không thể thực hiện thao tác",
     NOTIFY_FULLROOM: "Phòng chơi đã đủ người, vui lòng chọn phòng khác",
-    ERROR_FIND_USER: "Không thể tìm thấy user này"
+    ERROR_FIND_USER: "Không thể tìm thấy user này",
+    ERROR_EXISTS: "Username đã tồn tại, vui lòng chọn username khác",
+    ERROR_NOT_EXISTS: "User không tồn tại"
 }
