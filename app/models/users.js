@@ -19,14 +19,13 @@ module.exports = {
         return await usersModel.findByIdAndDelete({ _id: params.id });
     },
 
-    updateUser: async (params, req) => {
-        const userName = params.body.userName;
-        const user = await usersModel.find({userName});
-        if(user) {
+    updateUser: async (params, res) => {
+        if(await usersModel.find({userName: params.body.userName})) {
             res.status(401).json({
                 success: true,
                 notify: notifyConfig.ERROR_EXISTS
             });
+            return;
         }
         return await usersModel.findByIdAndUpdate({ _id: params.id }, params.body);
     }
