@@ -31,7 +31,7 @@ const validateReq = (req, res, notify) => {
 router.get("/", asyncHandler(
     async (req, res) => {
         try {
-            const data = await usersModel.listUsers({userName: req.query.userName}, { task: "all" });
+            const data = await usersModel.listUsers({ userName: req.query.userName }, { task: "all" });
             res.status(200).json({
                 success: true,
                 notice: notifyConfig.SUCCESS_GET_USER_LIST,
@@ -69,13 +69,13 @@ router.put("/edit/:id", asyncHandler(
             let error = validateReq(req, res, notifyConfig.ERROR_EDIT_USER);
             if (!error) {
                 const data = await usersModel.updateUser({ id: req.params.id, body: req.body }, res);
-                if(data) {
+                if (data) {
                     res.status(201).json({
                         success: true,
                         notify: notifyConfig.SUCCESS_EDIT_USER,
                         data
                     });
-                }else {
+                } else {
                     res.status(400).json({
                         success: true,
                         notify: notifyConfig.ERROR_NOT_EXISTS
