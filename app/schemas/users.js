@@ -13,7 +13,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: ""
     },
-    statusActive: String,
+    statusActive: {
+        type: String,
+        default: "online"
+    },
     point: {
         type: Number,
         default: 10
