@@ -26,7 +26,8 @@ module.exports = {
                 notify: notifyConfig.ERROR_EXISTS
             });
             return;
+        }else {
+            return await usersModel.findByIdAndUpdate({ _id: params.id }, params.body);
         }
-        return await usersModel.findByIdAndUpdate({ _id: params.id }, params.body);
     }
 }
