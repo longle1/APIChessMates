@@ -101,6 +101,10 @@
           "linkAvatar": {
             "description": "Nhập link avatar",
             "type": "string"
+          },
+          "statusActive": {
+            "description": "Nhập trạng thái",
+            "type": "string"
           }
         }
       },
