@@ -20,7 +20,8 @@ module.exports = {
     },
 
     updateUser: async (params, res) => {
-        if(await usersModel.find({userName: params.body.userName})) {
+        const user = await usersModel.findOne({userName: params.body.userName});
+        if(user) {
             res.status(401).json({
                 success: true,
                 notify: notifyConfig.ERROR_EXISTS
