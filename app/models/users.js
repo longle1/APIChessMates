@@ -20,7 +20,7 @@ module.exports = {
     },
 
     updateUser: async (params, res) => {
-        const user = await usersModel.findOne({_id: { $ne: ObjectId(params.id) }, userName: params.body.userName});
+        const user = await usersModel.findOne({userName: params.body.userName, _id: { $ne: ObjectId(params.id) }});
         if(user) {
             res.status(401).json({
                 success: true,
