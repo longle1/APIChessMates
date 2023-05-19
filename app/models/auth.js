@@ -6,9 +6,10 @@ module.exports = {
     login: async (params) => {
         let {userName, password} = params;
         const result = await usersModel.checkLoginUser(userName, password);
+        const user = await usersModel.findById(result.id);
         if(result.error)
             return false;
-        return result;
+        return user;
     },
     forgotPassword: async(params) => {
         let {userName, gmail} = params;
