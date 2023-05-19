@@ -59,7 +59,7 @@ userSchema.pre("save", function (next) {
 userSchema.statics.checkLoginUser = async function (userName, password) {
     let error = "";
     if (!userName.trim() || !password.trim()) return { error: notifyConfig.ERROR_PASSWORD_USERNAME_EMPTY };
-    const user = await userSchema.findOne({ userName });
+    const user = await this.findOne({ userName });
     if (!user) {
         return { error: notifyConfig.ERROR_USERNAME_UNCORRECT };
     }
