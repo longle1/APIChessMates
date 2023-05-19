@@ -8,11 +8,14 @@ module.exports = {
             if (params.userName) userName = { userName: { $regex: params.userName, $options: 'i' } };
             return await usersModel
                 .find(userName)
-                .populate({ path: 'lists', select: '-__v'})
-                .populate({path: 'matches', select: '-_id -status -count -betPoints -__v -name'})
+                .populate({ path: 'lists', select: '-__v' })
+                .populate({ path: 'matches', select: '-_id -status -count -betPoints -__v -name' })
                 .select('-__v');
         } else if (options.task === "one") {
-            return await usersModel.findById(params.id).select({});
+            return await usersModel.findById(params.id)
+                .populate({ path: 'lists', select: '-__v' })
+                .populate({ path: 'matches', select: '-_id -status -count -betPoints -__v -name' })
+                .select('-__v');
         }
     },
     deleteUser: async (params) => {
@@ -20,14 +23,14 @@ module.exports = {
     },
 
     updateUser: async (params, res) => {
-        const user = await usersModel.findOne({userName: params.body.userName, _id: { $ne: params.id }});
-        if(user) {
+        const user = await usersModel.findOne({ userName: params.body.userName, _id: { $ne: params.id } });
+        if (user) {
             res.status(401).json({
                 success: true,
                 notify: notifyConfig.ERROR_EXISTS
             });
             return;
-        }else {
+        } else {
             return await usersModel.findByIdAndUpdate({ _id: params.id }, params.body);
         }
     }
