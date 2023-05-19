@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
     gmail: String,
     linkAvatar: {
         type: String,
-        default: ""
+        default: "defaultAvatar.jpg"
     },
     statusActive: {
         type: String,
