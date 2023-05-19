@@ -59,12 +59,12 @@ userSchema.pre("save", function (next) {
 userSchema.statics.checkLoginUser = async function (userName, password) {
     let error = "";
     if (!userName.trim() || !password.trim()) return { error: notifyConfig.ERROR_PASSWORD_USERNAME_EMPTY };
-    const user = await this.findOne({ userName });
+    const user = await userSchema.findOne({ userName });
     if (!user) {
-        return { error: util.format(notifyConfig.ERROR_PASSWORD_USERNAME_UNCORRECT, "Username") };
+        return { error: notifyConfig.ERROR_USERNAME_UNCORRECT };
     }
     const checkPassword = await bcrypt.compare(password, user.password);
-    if (!checkPassword) return { error: util.format(notifyConfig.ERROR_PASSWORD_USERNAME_UNCORRECT, "Password") };
+    if (!checkPassword) return { error: notifyConfig.ERROR_PASSWORD_UNCORRECT };
     return user;
 }
 
