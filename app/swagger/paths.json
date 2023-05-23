@@ -81,6 +81,46 @@
             }
         }
     },
+    "/users/edit/{id}": {
+        "put": {
+            "tags": [
+                "users"
+            ],
+            "summary": "Chỉnh sửa thông tin người dùng theo id",
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of user",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/components/schemas/id"
+                    }
+                }
+            ],
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#components/schemas/editUser"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/users"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
     "/users/updatePoint/{id}": {
         "put": {
             "tags": [
