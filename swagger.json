@@ -113,7 +113,7 @@
         "properties": {
           "point": {
             "description": "Nhập điểm của người chơi",
-            "type": "string"
+            "type": "number"
           }
         }
       },
