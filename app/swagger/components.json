@@ -77,6 +77,15 @@
                 }
             }
         },
+        "updatePoint": {
+            "type": "object",
+            "properties": {
+                "point": {
+                    "description": "Nhập điểm của người chơi",
+                    "type": "string"
+                }
+            }
+        },
         "listFriends": {
             "type": "object",
             "properties": {

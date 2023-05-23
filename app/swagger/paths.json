@@ -81,12 +81,12 @@
             }
         }
     },
-    "/users/edit/{id}": {
+    "/users/updatePoint/{id}": {
         "put": {
             "tags": [
                 "users"
             ],
-            "summary": "Chỉnh sửa thông tin người dùng theo id",
+            "summary": "Cập nhật điểm của người chơi theo id",
             "parameters": [
                 {
                     "name": "id",
@@ -102,7 +102,7 @@
                 "content": {
                     "application/json": {
                         "schema": {
-                            "$ref": "#components/schemas/editUser"
+                            "$ref": "#components/schemas/updatePoint"
                         }
                     }
                 }

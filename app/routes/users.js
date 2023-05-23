@@ -90,6 +90,30 @@ router.put("/edit/:id", asyncHandler(
         }
     }
 ));
+router.put("updatePoint/:id", asyncHandler(
+    async (req, res) => {
+        try {
+            const data = await usersModel.updatePoint({ id: req.params.id, body: req.body.point });
+            if(data) {
+                res.status(200).json({
+                    success: true,
+                    notify: notifyConfig.SUCCESS_UPDATE_SCORE,
+                    data
+                });
+            }else {
+                res.status(400).json({
+                    success: false,
+                    notify: notifyConfig.ERROR_FIND_USER,
+                });
+            }
+        } catch (error) {
+            res.status(400).json({
+                success: false,
+                notify: notifyConfig.ERROR_FIND_USER,
+            });
+        }
+    }
+));
 router.delete('/delete/:id', asyncHandler(
     async (req, res) => {
         try {

@@ -33,5 +33,15 @@ module.exports = {
         } else {
             return await usersModel.findByIdAndUpdate({ _id: params.id }, params.body);
         }
+    },
+    updatePoint: async (params) => {
+        const user = await usersModel.findOne({ _id: params.id });
+        if(user) {
+            user.point = JSON.parse(params.body);
+            await user.save();
+            return user;
+        }else {
+            return false;
+        }
     }
 }

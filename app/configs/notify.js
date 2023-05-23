@@ -32,5 +32,6 @@ module.exports = {
     NOTIFY_FULLROOM: "Phòng chơi đã đủ người, vui lòng chọn phòng khác",
     ERROR_FIND_USER: "Không thể tìm thấy user này",
     ERROR_EXISTS: "Username đã tồn tại, vui lòng chọn username khác",
-    ERROR_NOT_EXISTS: "User không tồn tại"
+    ERROR_NOT_EXISTS: "User không tồn tại",
+    SUCCESS_UPDATE_SCORE: "Cập nhật điểm thành công"
 }
