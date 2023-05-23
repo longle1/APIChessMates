@@ -90,7 +90,7 @@ router.put("/edit/:id", asyncHandler(
         }
     }
 ));
-router.put("updatePoint/:id", asyncHandler(
+router.put("/updatePoint/:id", asyncHandler(
     async (req, res) => {
         try {
             const data = await usersModel.updatePoint({ id: req.params.id, body: req.body.point });
