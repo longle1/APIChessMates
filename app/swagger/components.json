@@ -148,6 +148,15 @@
             "properties": {
                 "id": {
                     "type": "string"
+                },
+                "betPoints": {
+                    "type": "number"
+                },
+                "roomName": {
+                    "type": "string"
+                },
+                "ownerRoom": {
+                    "type": "string"
                 }
             }
         },

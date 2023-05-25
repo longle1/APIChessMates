@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const matchesSchema = new mongoose.Schema({
-    name: String,
     players: [
         {
             user: {
@@ -23,9 +22,15 @@ const matchesSchema = new mongoose.Schema({
         default: 1
     },
     betPoints: {
-        type: String,
+        type: Number,
         default: 1
     },
+    roomName: {
+        type: String
+    },
+    ownerRoom: {
+        type: String
+    }
 });
 
 

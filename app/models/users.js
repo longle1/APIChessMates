@@ -9,12 +9,12 @@ module.exports = {
             return await usersModel
                 .find(userName)
                 .populate({ path: 'lists', select: '-__v' })
-                .populate({ path: 'matches', select: '-_id -status -count -betPoints -__v -name' })
+                .populate({ path: 'matches', select: '-_id -count -betPoints -__v -roomName -ownerRoom' })
                 .select('-__v');
         } else if (options.task === "one") {
             return await usersModel.findById(params.id)
                 .populate({ path: 'lists', select: '-__v' })
-                .populate({ path: 'matches', select: '-_id -status -count -betPoints -__v -name' })
+                .populate({ path: 'matches', select: '-_id -count -betPoints -__v -roomName -ownerRoom' })
                 .select('-__v');
         }
     },
