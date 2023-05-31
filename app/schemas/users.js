@@ -15,21 +15,13 @@ const userSchema = new mongoose.Schema({
     },
     statusActive: {
         type: String,
-        default: "online"
+        default: "offline"
     },
     point: {
         type: Number,
         default: 10
     },
     port: Number,
-    numberOfWins: {
-        type: Number,
-        default: 0
-    },
-    numberOfLosses: {
-        type: Number,
-        default: 0
-    },
     resetPasswordToken: String,
     resetPasswordTokenExp: String
 });

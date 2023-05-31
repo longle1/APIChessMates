@@ -42,12 +42,6 @@
                 "port": {
                     "type": "number"
                 },
-                "numberOfWins": {
-                    "type": "number"
-                },
-                "numberOfLosses": {
-                    "type": "number"
-                },
                 "resetPasswordToken": {
                     "type": "string"
                 },
