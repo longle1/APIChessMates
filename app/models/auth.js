@@ -8,7 +8,7 @@ module.exports = {
         const result = await usersModel.checkLoginUser(userName, password);
         const user = await usersModel.findById(result.id)
             .populate({ path: 'lists', select: '-__v' })
-            .populate({ path: 'matches', select: '-_id -status -count -betPoints -__v -name' })
+            .populate({ path: 'matches', select: '-_id  -count -betPoints -__v -roomName -ownerRoom -ipRoom' })
             .select('-__v');
         if (result.error)
             return false;
