@@ -30,6 +30,9 @@ const matchesSchema = new mongoose.Schema({
     },
     ownerRoom: {
         type: String
+    },
+    ipRoom: {
+        type: String
     }
 });
 

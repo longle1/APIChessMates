@@ -1,11 +1,11 @@
 const matchesModel = require(__path_schemas + "matches");
 module.exports = {
     createRoom: async (body) => {
-        const {id, betPoints, roomName, ownerRoom} = {...body};
+        const {id, betPoints, roomName, ownerRoom, ipRoom} = {...body};
         const arrays = [];
         const object = { user: id };
         arrays.push(object);
-        return room = await matchesModel.create({ players: arrays, betPoints , roomName, ownerRoom });
+        return room = await matchesModel.create({ players: arrays, betPoints , roomName, ownerRoom, ipRoom });
     },
     getListRooms: async () => {
         return await matchesModel.find({});

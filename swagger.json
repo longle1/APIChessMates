@@ -188,6 +188,9 @@
           },
           "ownerRoom": {
             "type": "string"
+          },
+          "ipRoom": {
+            "type": "string"
           }
         }
       },
