@@ -21,7 +21,6 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default: 10
     },
-    port: Number,
     resetPasswordToken: String,
     resetPasswordTokenExp: String
 });
