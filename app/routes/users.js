@@ -70,7 +70,7 @@ router.put("/edit/:id", asyncHandler(
             if (!error) {
                 const data = await usersModel.updateUser({ id: req.params.id, body: req.body }, res);
                 if (data) {
-                    res.status(201).json({
+                    res.status(200).json({
                         success: true,
                         notify: notifyConfig.SUCCESS_EDIT_USER,
                         data
