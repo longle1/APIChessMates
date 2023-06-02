@@ -116,4 +116,28 @@ router.delete('/delete/:id', asyncHandler(
     }
 ));
 
+router.delete('/delete/all', asyncHandler(
+    async (req, res) => {
+        try {
+            const data = await matches.deleteAllRoom();
+            if (data) {
+                res.status(200).json({
+                    success: true,
+                    notify: notifyConfig.SUCCESS_DELETE_MATCHES,
+                    data
+                });
+            }else {
+                res.status(400).json({
+                    success: true,
+                    notify: notifyConfig.NOTIFY_LIST_EMPTY
+                });
+            }
+        } catch (error) {
+            res.status(400).json({
+                success: false,
+                notify: notifyConfig.ERROR_EXCUTE_FAIL
+            });
+        }
+    }
+))
 module.exports = router;

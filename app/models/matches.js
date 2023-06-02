@@ -51,5 +51,8 @@ module.exports = {
     },
     deleteRoom: async (id) => {
         return await matchesModel.findOneAndDelete({ _id: id });
+    },
+    deleteAllRoom: async() => {
+        return await matchesModel.deleteAllRoom({});
     }
 }
