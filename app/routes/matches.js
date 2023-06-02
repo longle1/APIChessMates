@@ -123,19 +123,19 @@ router.delete('/delete/all', asyncHandler(
             if (data) {
                 res.status(200).json({
                     success: true,
-                    notify: notifyConfig.SUCCESS_DELETE_MATCHES,
+                    notify: "Xóa danh sách thành công",
                     data
                 });
             }else {
                 res.status(400).json({
                     success: true,
-                    notify: notifyConfig.NOTIFY_LIST_EMPTY
+                    notify: "Xóa danh sách thất bại"
                 });
             }
         } catch (error) {
             res.status(400).json({
                 success: false,
-                notify: notifyConfig.ERROR_EXCUTE_FAIL
+                notify: "Không thể thực hiện"
             });
         }
     }
