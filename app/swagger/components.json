@@ -39,9 +39,6 @@
                 "point": {
                     "type": "number"
                 },
-                "port": {
-                    "type": "number"
-                },
                 "resetPasswordToken": {
                     "type": "string"
                 },
