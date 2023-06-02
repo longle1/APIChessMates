@@ -434,23 +434,12 @@
             }
         }
     },
-    "/matches/delete/all": {
+    "/matches/delete": {
         "delete": {
             "tags": [
                 "matches"
             ],
             "summary": "Xóa tất cả phòng chơi",
-            "parameters": [
-                {
-                    "name": "id",
-                    "in": "path",
-                    "description": "ID of matches",
-                    "required": true,
-                    "schema": {
-                        "$ref": "#/components/schemas/id"
-                    }
-                }
-            ],
             "responses": {
                 "200": {
                     "description": "OK",

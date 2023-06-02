@@ -70,9 +70,6 @@
           "point": {
             "type": "number"
           },
-          "port": {
-            "type": "number"
-          },
           "resetPasswordToken": {
             "type": "string"
           },
@@ -692,7 +689,7 @@
         }
       }
     },
-    "/matches/delete/all": {
+    "/matches/delete": {
       "delete": {
         "tags": [
           "matches"

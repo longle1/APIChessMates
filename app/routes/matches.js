@@ -116,7 +116,7 @@ router.delete('/delete/:id', asyncHandler(
     }
 ));
 
-router.delete('/delete/all', asyncHandler(
+router.delete('/delete', asyncHandler(
     async (req, res) => {
         try {
             const data = await matches.deleteAllRoom();
