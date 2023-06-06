@@ -38,7 +38,7 @@ module.exports = {
                 email: user.gmail,
                 subject: "Mã token",
                 notify: message
-            })
+            });
             return "Vui lòng kiểm tra gmail của bạn";
         } catch (error) {
             user.resetPasswordToken = null;
@@ -77,7 +77,7 @@ module.exports = {
         return user;
     },
     createUser: async (body) => {
-        let user = await usersModel.findOne({ userName: body.userName, gmail: body.gmail });
+        let user = await usersModel.findOne({ userName: body.userName });
         if (user) {
             return false;
         }
