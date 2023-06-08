@@ -23,22 +23,27 @@ module.exports = {
     },
 
     updateUser: async (params, res) => {
-        const user = await usersModel.findOne({ userName: params.body.userName, _id: { $ne: params.id } });
+        const user = await usersModel.findOne({ userName: params.body.userName });
         if (user) {
-            res.status(401).json({
-                success: true,
-                notify: notifyConfig.ERROR_EXISTS
-            });
+            if (params.id === user.id) {
+                return await usersModel.findByIdAndUpdate({ _id: params.id }, params.body);
+            } else {
+                res.status(401).json({
+                    success: true,
+                    notify: notifyConfig.ERROR_EXISTS
+                });
+            }
+
             return;
         } else {
             return await usersModel.findByIdAndUpdate({ _id: params.id }, params.body);
         }
     },
     updatePoint: async (params) => {
-        const user = await usersModel.findByIdAndUpdate({ _id: params.id }, {point: params.body});
-        if(user) {
+        const user = await usersModel.findByIdAndUpdate({ _id: params.id }, { point: params.body });
+        if (user) {
             return user;
-        }else {
+        } else {
             return false;
         }
     }
