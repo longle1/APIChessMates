@@ -72,6 +72,7 @@ module.exports = {
         const user = await usersModel.findOne({ _id: params.id });
 
         user.password = params.password;
+        user.statusActive = "offline";
         await user.save();
         //return "Đổi mật khẩu thành công";
         return user;
